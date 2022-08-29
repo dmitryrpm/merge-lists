@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"strconv"
+)
+
 // Вам даны "головы" двух отсортированных по возрастанию связанных списков l1 и l2.
 // Объедините два списка в один отсортированный список.
 // Список должен быть составлен путем соединения вместе узлов первых двух списков.
@@ -19,19 +24,22 @@ type ListNode struct {
 	Next *ListNode
 }
 
+func (list ListNode) String() string {
+	str := strconv.Itoa(list.Val)
+	l := list.Next
+	for l != nil {
+		str = str + fmt.Sprintf(" -> %d", l.Val)
+		l = l.Next
+	}
+	return str
+}
+
 // main run me
 func main() {
 	l1 := &ListNode{Val: 2, Next: &ListNode{Val: 3, Next: &ListNode{Val: 5}}}
 	l2 := &ListNode{Val: 1, Next: &ListNode{Val: 3, Next: &ListNode{Val: 5}}}
 	l3 := mergeTwoLists(l1, l2)
-	for l3 != nil {
-		if l3.Next != nil {
-			print(l3.Val, " -> ")
-		} else {
-			print(l3.Val)
-		}
-		l3 = l3.Next
-	}
+	fmt.Println("res: ", l3)
 }
 
 // mergeTwoLists merge 2 linked lists
